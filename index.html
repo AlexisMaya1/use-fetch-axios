@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Fetch</h3>
+    <ol class="lista-fetch"></ol>
+
+    <h3>Fetch Async</h3>
+    <ol class="fetch-async"></ol>
+
+    <h3>Axios</h3>
+    <ol class="axios"></ol>
+
+    <h3>Axios async</h3>
+    <ol class="axiosAsync"></ol>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        const url = "https://jsonplaceholder.typicode.com/users";
+
+        //Fetch
+
+        
+    
+    const $listaFetch = document.querySelector(".lista-fetch"); 
+    const $fragmento = document.createDocumentFragment(); 
+        
+        fetch(url)
+        .then((res) => res.json())
+        .then((json) => {
+            console.log(json);
+            json.forEach(el => {
+                let $li = document.createElement("li"); 
+                $li.innerHTML = `Nombre: ${el.name} Correo: ${el.email} Website: ${el.website}`; 
+                $fragmento.appendChild($li); 
+            });
+            $listaFetch.appendChild($fragmento); 
+        })
+        .catch(function(error) {
+            console.log(error); 
+        }); 
+
+        
+
+        //Fetch Async 
+
+     
+        
+        const $FetchAsync = document.querySelector(".fetch-async"); 
+        const $fragmento1 = document.createDocumentFragment(); 
+         
+
+        async function fetchAsync () {
+            try {
+                let res = await fetch(url);
+                let json = await res.json();  
+                console.log(res,json); 
+
+                json.map((el) => {
+                    let $li = document.createElement("li");
+                    $li.innerHTML = `Nombre: ${el.name} Correo: ${el.email} Website: ${el.website}`;
+                    $fragmento1.appendChild($li);  
+                }); 
+                $FetchAsync.appendChild($fragmento1); 
+            } catch (error) {
+                console.log(error); 
+            }
+              
+            
+        }
+
+        fetchAsync(); 
+
+    
+        //Axios 
+     
+        
+        const $Axios = document.querySelector(".axios");
+        const $fragment2 = document.createDocumentFragment(); 
+ 
+        const axiosget = axios.get(url)
+        .then ((res) => {
+            let json = res.data; 
+            console.log(res, json); 
+
+            json.forEach(el => {
+                let $li = document.createElement("li"); 
+                $li.innerHTML = `Nombre: ${el.name} Correo: ${el.email} Website: ${el.website}`;
+                $fragment2.appendChild($li); 
+            });
+            $Axios.appendChild($fragment2); 
+        })
+        .catch((error) => {
+            console.log(error); 
+        })
+
+
+       //Axios Async
+
+    
+       
+        const $AxiosAsync = document.querySelector(".axiosAsync");
+        const $fragment3 = document.createDocumentFragment(); 
+
+        async function getData() {
+            try {
+                let res = await axios.get(url); 
+                let json = await res.data;
+                console.log(res, json);  
+
+                json.forEach(el => {
+                    let $li = document.createElement("li"); 
+                    $li.innerHTML = `Nombre: ${el.name} Correo: ${el.email} Website: ${el.website}`;
+                    $fragment3.appendChild($li); 
+                });
+                $AxiosAsync.appendChild($fragment3); 
+            } catch (error) {
+                console.log(error)
+            }
+        }
+ 
+        getData(); 
+
+       
+    </script>
+</body>
+</html>
